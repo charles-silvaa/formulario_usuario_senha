@@ -20,9 +20,8 @@ function ValidateField(field) {
             text: {
                 valueMissing: "Por favor, preencha este campo"
             },
-            email: {
-                valueMissing: "Email é obrigatório",
-                typeMismatch: "Por favor, preencha um email válido"
+            password: {
+                valueMissing: "Senha é obrigatória",
             }
         }
 
@@ -56,5 +55,33 @@ function ValidateField(field) {
         }
     }
 }
+
+
+function customValidation(event) {
+
+    const field = event.target
+    const validation = ValidateField(field)
+
+    validation()
+
+}
+
+for( field of fields ){
+    field.addEventListener("invalid", event => { 
+        // eliminar o bubble
+        event.preventDefault()
+
+        customValidation(event)
+    })
+    field.addEventListener("blur", customValidation)
+}
+
+
+document.querySelector("form")
+.addEventListener("button", event => {
+
+    // não vai enviar o formulário
+    event.preventDefault()
+})
 
 
